@@ -1,0 +1,62 @@
+Script started on 2024-02-13 21:53:16-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="120" LINES="30"]
+]0;estefanomisme@DESKTOP-S2CL33G: ~/fullstack/part12-containers-applications[01;32mestefanomisme@DESKTOP-S2CL33G[00m:[01;34m~/fullstack/part12-containers-applications[00m$ docker container run hello-wrldorld
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+
+[1A[2Kc1ec31eb5944: Pulling fs layer [1B[1A[2Kc1ec31eb5944: Downloading [==============>                                    ]     720B/2.459kB[1B[1A[2Kc1ec31eb5944: Downloading [==================================================>]  2.459kB/2.459kB[1B[1A[2Kc1ec31eb5944: Verifying Checksum [1B[1A[2Kc1ec31eb5944: Download complete [1B[1A[2Kc1ec31eb5944: Extracting [==================================================>]  2.459kB/2.459kB[1B[1A[2Kc1ec31eb5944: Extracting [==================================================>]  2.459kB/2.459kB[1B[1A[2Kc1ec31eb5944: Pull complete [1BDigest: sha256:4bd78111b6914a99dbc560e6a20eab57ff6655aea4a80c50b0c5491968cbc2e6
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+]0;estefanomisme@DESKTOP-S2CL33G: ~/fullstack/part12-containers-applications[01;32mestefanomisme@DESKTOP-S2CL33G[00m:[01;34m~/fullstack/part12-containers-applications[00m$ o[Kdocker cona[Ktainer ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+]0;estefanomisme@DESKTOP-S2CL33G: ~/fullstack/part12-containers-applications[01;32mestefanomisme@DESKTOP-S2CL33G[00m:[01;34m~/fullstack/part12-containers-applications[00m$ docker image ls
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    d2c94e258dcb   9 months ago   13.3kB
+]0;estefanomisme@DESKTOP-S2CL33G: ~/fullstack/part12-containers-applications[01;32mestefanomisme@DESKTOP-S2CL33G[00m:[01;34m~/fullstack/part12-containers-applications[00m$ docker run -it ubuntu bash
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+
+[1A[2K57c139bbda7e: Pulling fs layer [1B[1A[2K57c139bbda7e: Downloading [>                                                  ]  309.6kB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [===>                                               ]  2.157MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [========>                                          ]  4.905MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [============>                                      ]   7.67MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [==================>                                ]  10.75MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [=======================>                           ]  14.15MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [==========================>                        ]  15.69MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [==============================>                    ]  18.14MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [====================================>              ]  21.86MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [========================================>          ]  23.71MB/29.55MB[1B[1A[2K57c139bbda7e: Downloading [=============================================>     ]  27.09MB/29.55MB[1B[1A[2K57c139bbda7e: Verifying Checksum [1B[1A[2K57c139bbda7e: Download complete [1B[1A[2K57c139bbda7e: Extracting [>                                                  ]  327.7kB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [=======>                                           ]   4.26MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [=============>                                     ]  7.864MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [================>                                  ]  9.503MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [=======================>                           ]  13.76MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [=================================>                 ]  19.99MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [==========================================>        ]   24.9MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [===========================================>       ]  25.89MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [===============================================>   ]  28.18MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [=================================================> ]  29.16MB/29.55MB[1B[1A[2K57c139bbda7e: Extracting [==================================================>]  29.55MB/29.55MB[1B[1A[2K57c139bbda7e: Pull complete [1BDigest: sha256:e9569c25505f33ff72e88b2990887c9dcf230f23259da296eb814fc2b41af999
+Status: Downloaded newer image for ubuntu:latest
+[?2004h]0;root@fde17ef44fc8: /root@fde17ef44fc8:/# ls
+[?2004l[0m[01;36mbin[0m  [01;34mboot[0m  [01;34mdev[0m  [01;34metc[0m  [01;34mhome[0m  [01;36mlib[0m  [01;36mlib32[0m  [01;36mlib64[0m  [01;36mlibx32[0m  [01;34mmedia[0m  [01;34mmnt[0m  [01;34mopt[0m  [01;34mproc[0m  [01;34mroot[0m  [01;34mrun[0m  [01;36msbin[0m  [01;34msrv[0m  [01;34msys[0m  [30;42mtmp[0m  [01;34musr[0m  [01;34mvar[0m
+[?2004h]0;root@fde17ef44fc8: /root@fde17ef44fc8:/# ls usr/s
+sbin/  share/ src/   
+]0;root@fde17ef44fc8: /root@fde17ef44fc8:/# ls usr/s
+sbin/  share/ src/   
+]0;root@fde17ef44fc8: /root@fde17ef44fc8:/# ls usr/src/ / /app
+[?2004lls: cannot access 'usr/src/app': No such file or directory
+[?2004h]0;root@fde17ef44fc8: /root@fde17ef44fc8:/# mkdir usr/src/app
+[?2004l[?2004h]0;root@fde17ef44fc8: /root@fde17ef44fc8:/# echo ""'"'"[1@u[1@s[1@e[1@ [1@s[1@t[1@r[1@i[1@c[1@t'" > hell    [7m/usr/src/app/index.js[27m/usr/src/app/index.js
+[?2004l[?2004h]0;root@fde17ef44fc8: /root@fde17ef44fc8:/# [Kcat usr/src/app/index.js 
+[?2004l'use strict'
+[?2004h]0;root@fde17ef44fc8: /root@fde17ef44fc8:/# exit
+[?2004lexit
+]0;estefanomisme@DESKTOP-S2CL33G: ~/fullstack/part12-containers-applications[01;32mestefanomisme@DESKTOP-S2CL33G[00m:[01;34m~/fullstack/part12-containers-applications[00m$ docker run -it ubuntu bash[11Pimage ls[4@container[C[C[C -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                      PORTS     NAMES
+fde17ef44fc8   ubuntu        "bash"     4 minutes ago   Exited (0) 51 seconds ago             zen_hellman
+72eff6952a69   hello-world   "/hello"   6 minutes ago   Exited (0) 6 minutes ago              serene_varahamihira
+]0;estefanomisme@DESKTOP-S2CL33G: ~/fullstack/part12-containers-applications[01;32mestefanomisme@DESKTOP-S2CL33G[00m:[01;34m~/fullstack/part12-containers-applications[00m$ exit[K[K[K[Kexit
+exit
+
+Script done on 2024-02-13 22:00:59-05:00 [COMMAND_EXIT_CODE="0"]
