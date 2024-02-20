@@ -1,5 +1,6 @@
 const express = require('express');
-const { Todo } = require('../mongo')
+const { Todo } = require('../mongo');
+const { setAsync, getAsync } = require('../redis');
 const router = express.Router();
 
 /* GET todos listing. */
@@ -14,6 +15,7 @@ router.post('/', async (req, res) => {
     text: req.body.text,
     done: false
   })
+  setAsync('added_todos', Number(await getAsync('added_todos')) + 1);
   res.send(todo);
 });
 
@@ -35,13 +37,18 @@ singleRouter.delete('/', async (req, res) => {
 
 /* GET todo. */
 singleRouter.get('/', async (req, res) => {
-  res.sendStatus(405); // Implement this
+  if (req.todo) res.send(req.todo);
+  else res.sendStatus(404);
 });
 
 /* PUT todo. */
 singleRouter.put('/', async (req, res) => {
-  res.sendStatus(405); // Implement this
+  if (req.todo) {
+    const updated = await Todo.findByIdAndUpdate(req.todo._id, req.body, { new: true })
+    res.send(updated);
+  } else res.sendStatus(404);
 });
+
 
 router.use('/:id', findByIdMiddleware, singleRouter)
 
