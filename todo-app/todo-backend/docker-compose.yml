@@ -3,9 +3,31 @@ version: '3.8'
 services:
   backend:
     image: todo-backend
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/app
     ports:
       - 3000:3000
     environment:
-      MONGO_URL: mongodb://root:example@localhost:3456/the_database
-      REDIS_URL: redis://localhost:6379
+      MONGO_URL: mongodb://root:example@mongo:27017/the_database
+      REDIS_URL: redis://redis:6379
+  mongo:
+    image: mongo:jammy
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: the_database
+    volumes: 
+      - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+      - mongo_data:/data/db
+  redis:
+    image: redis:alpine3.19
+    command: ['redis-server', '--appendonly', 'yes']
+    volumes:
+      - ./redis_data:/data
+
+
+volumes:
+  mongo_data: {}
