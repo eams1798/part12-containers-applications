@@ -15,7 +15,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
+    "dev": "PORT=5173 react-scripts start",
     "build": "react-scripts build",
     "start": "npm run build && node server.js",
     "test": "react-scripts test",
