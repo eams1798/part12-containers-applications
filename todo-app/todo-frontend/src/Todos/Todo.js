@@ -24,7 +24,7 @@ const NotDoneInfo = (todo, onClickDelete, onClickComplete) => (
 const Todo = ({ todo, onClickDelete, onClickComplete }) => (
   <div style={{ display: 'flex', justifyContent: 'space-between', maxWidth: '70%', margin: 'auto' }}>
     <span>
-      {todo.text} 
+      {todo.text}
     </span>
     {todo.done ?
       <DoneInfo todo={todo} onClickDelete={onClickDelete} />:
