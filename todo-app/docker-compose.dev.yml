@@ -15,8 +15,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./todo-backend:/usr/src/app
-    ports:
-      - 3000:3000
     environment:
       MONGO_URL: mongodb://root:example@mongo:27017/the_database
       REDIS_URL: redis://redis:6379

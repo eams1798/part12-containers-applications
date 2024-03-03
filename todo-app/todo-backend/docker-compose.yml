@@ -13,6 +13,10 @@ services:
     environment:
       MONGO_URL: mongodb://root:example@mongo:27017/the_database
       REDIS_URL: redis://redis:6379
+    depends_on:
+      - mongo
+      - redis
+
   mongo:
     image: mongo:jammy
     environment:
@@ -21,13 +25,10 @@ services:
       MONGO_INITDB_DATABASE: the_database
     volumes: 
       - ./mongo/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
-      - mongo_data:/data/db
+      - ./mongo_data:/data/db
+
   redis:
     image: redis:alpine3.19
     command: ['redis-server', '--appendonly', 'yes']
     volumes:
       - ./redis_data:/data
-
-
-volumes:
-  mongo_data: {}
