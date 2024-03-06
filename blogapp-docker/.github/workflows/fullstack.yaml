@@ -1,0 +1,104 @@
+name: Fullstack Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  backend_workflow:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: cd backend && yarn install
+      - name: Lint
+        run: cd backend && yarn lint
+      - name: Test
+        run: cd backend && TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }} SECRET=${{ secrets.SECRET }} yarn test
+      - name: Test Failure
+        uses: BubbleProd/discord-webhook-notify@v2
+        if: failure()
+        with:
+            severity: error
+            details: Pipeline failed
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  frontend_deployment:
+    runs-on: ubuntu-20.04
+    needs:
+      - backend_workflow
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: cd frontend && yarn install
+      - name: Lint
+        run: cd frontend && yarn lint
+      - name: Build
+        run: cd frontend && yarn build
+      - name: Test
+        run: cd frontend && yarn test
+      - name: Test Failure
+        uses: BubbleProd/discord-webhook-notify@v2
+        if: failure()
+        with:
+            severity: error
+            details: Pipeline failed
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Deploy to production
+        id: deploy
+        env:
+          COMMIT_MESSAGES: ${{ join(github.event.commits.*.message, ' ') }}
+        if: ${{ github.event_name == 'push' && !contains(env.COMMIT_MESSAGES, '#skip') }}
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+      - name: Test Failure
+        uses: BubbleProd/discord-webhook-notify@v2
+        if: failure()
+        with:
+            severity: error
+            details: Pipeline failed
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+      - name: Test Failure at Deploy
+        uses: BubbleProd/discord-webhook-notify@v2
+        if: ${{ steps.deploy.conclusion == 'failure' }}
+        with:
+            severity: error
+            details: ${{ steps.deploy.outputs.message }}
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+  tag_release:
+    if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+    needs: frontend_deployment
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.67.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          WITH_V: true
+      - name: Test success
+        uses: BubbleProd/discord-webhook-notify@v2
+        if: success()
+        with:
+            severity: info
+            details: Pipeline success
+            webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
